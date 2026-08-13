@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  webapp:
+    build: .
+    container_name: evoting_webapp
+    command: gunicorn wsgi_user:app -b 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - FLASK_ENV=production
+    restart: unless-stopped
+
+  admin:
+    build: .
+    container_name: evoting_admin
+    command: gunicorn wsgi_admin:app -b 0.0.0.0:8001
+    ports:
+      - "8001:8001"
+    volumes:
+      - .:/app
+    environment:
+      - FLASK_ENV=production
+    restart: unless-stopped
+
+  tunnel_webapp:
+    image: cloudflare/cloudflared:latest
+    command: tunnel --url http://webapp:8000
+    restart: unless-stopped
+    depends_on:
+      - webapp
+
+  tunnel_admin:
+    image: cloudflare/cloudflared:latest
+    command: tunnel --url http://admin:8001
+    restart: unless-stopped
+    depends_on:
+      - admin

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PEMIRA BEM FTI UG | Sistem E-Voting</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+    <div class="nav-wrapper">
+        <nav class="navbar">
+            <div class="nav-container">
+                <a href="/" class="logo">
+                    <img src="{{ url_for('static', filename='img/logo-pemira-transparent.png') }}" alt="PEMIRA FTI UG" style="height: 40px; width: auto; display: block;">
+                </a>
+                <div class="nav-links">
+                    <a href="/"><i class="fas fa-house"></i> Beranda</a>
+                    {% if is_admin %}
+                    <a href="/admin/verify-krs"><i class="fas fa-file-circle-check"></i> Review KRS</a>
+                    <a href="/admin/pemilih-valid"><i class="fas fa-user-check"></i> Pemilih Valid</a>
+                    <a href="/admin/settings"><i class="fas fa-clock"></i> Jadwal</a>
+                    {% else %}
+                    <a href="/verify"><i class="fas fa-id-card"></i> Mulai Memilih</a>
+                    <a href="/cek-suara"><i class="fas fa-magnifying-glass"></i> Cek Suara</a>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <main class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div style="margin-bottom: 1.25rem;">
+            {% for category, message in messages %}
+            <div style="padding: 0.8rem 1rem; border-radius: 8px; margin-bottom: 0.5rem; font-size: 0.9rem; font-weight: 600;
+                {% if category == 'success' %}background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0;
+                {% else %}background: #fef2f2; color: #b91c1c; border: 1px solid #fca5a5;{% endif %}">
+                {% if category == 'success' %}<i class="fas fa-circle-check"></i>{% else %}<i class="fas fa-circle-xmark"></i>{% endif %}
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2026 PEMIRA BEM FTI Universitas Gunadarma. Diamankan dengan blockchain SHA-256.</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PEMIRA BEM FTI 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" crossorigin="anonymous">
+<style>
+  :root {
+    --navy:        #3a557b;
+    --navy-hover:  #2f486a;
+    --card-bg:     rgba(74, 98, 133, 0.45);
+    --card-border: rgba(255, 255, 255, 0.18);
+    --overlay:     linear-gradient(180deg, rgba(28,52,88,.75) 0%, rgba(28,52,88,.55) 45%, rgba(28,52,88,.72) 100%);
+    --text:        #ffffff;
+    --text-muted:  rgba(255, 255, 255, 0.85);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Poppins', "Segoe UI", system-ui, sans-serif;
+    color: var(--text);
+    background: #1c3458;
+    min-height: 100vh;
+  }
+
+  /* Hero: background photo + dark overlay */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-image: var(--overlay),
+                      url("{{ url_for('static', filename='img/DSC_0297.jpeg') }}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 24px clamp(20px, 4vw, 40px) 0;
+  }
+
+  /* Pill navbar */
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--navy);
+    border-radius: 999px;
+    padding: 18px clamp(24px, 3vw, 40px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  .navbar .brand {
+    font-size: clamp(1rem, 1.4vw, 1.25rem);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: clamp(24px, 3vw, 56px);
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.92rem;
+    letter-spacing: 1px;
+    transition: opacity 0.2s;
+  }
+  .nav-links a:hover { opacity: 0.65; }
+
+  /* Hero content */
+  .hero-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 0;
+    gap: 20px;
+  }
+
+  .hero-title {
+    font-size: clamp(2.8rem, 9vw, 7rem);
+    font-weight: 800;
+    line-height: 1;
+    text-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+  }
+
+  .hero-subtitle {
+    max-width: 620px;
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 12px;
+  }
+
+  .btn {
+    background: var(--navy);
+    color: var(--text);
+    border: none;
+    border-radius: 12px;
+    padding: 16px 36px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    font-family: inherit;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+    transition: background 0.2s, transform 0.15s;
+    display: inline-block;
+  }
+  .btn:hover { background: var(--navy-hover); transform: translateY(-2px); }
+
+  /* Hero logo */
+  .hero-logo-wrap img {
+    width: clamp(180px, 20vw, 280px);
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.45));
+  }
+
+  /* Feature cards */
+  .features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(16px, 3vw, 36px);
+    width: 100%;
+    max-width: 1100px;
+    margin: 20px auto 0;
+    padding: 0 clamp(0px, 2vw, 20px);
+  }
+
+  .card {
+    position: relative;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 18px;
+    padding: 28px 32px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    overflow: hidden;
+  }
+
+  .card h3 {
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+
+  .card p {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--text-muted);
+    max-width: 78%;
+    text-align: justify;
+  }
+
+  .card .icon {
+    position: absolute;
+    top: 50%;
+    right: 30px;
+    transform: translateY(-12%);
+    font-size: 2.4rem;
+    opacity: 0.85;
+    color: #fff;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.06);
+    padding: 18px 20px;
+    font-size: 0.87rem;
+    color: var(--text-muted);
+    margin: 24px clamp(-20px, -4vw, -40px) 0;
+  }
+
+  @media (max-width: 768px) {
+    .nav-links { gap: 18px; }
+    .nav-links a { font-size: 0.78rem; letter-spacing: 0.5px; }
+    .navbar .brand { font-size: 0.9rem; }
+    .features { grid-template-columns: 1fr; }
+    .card p { max-width: 85%; }
+    .btn { flex: 1 1 auto; text-align: center; }
+  }
+
+  @media (max-width: 480px) {
+    .navbar { padding: 14px 18px; }
+    .card .icon { font-size: 1.8rem; right: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+
+  <!-- Pill Navbar -->
+  <nav class="navbar">
+    <a href="/" class="brand"><i class="fas fa-square-poll-vertical"></i> PEMIRA FTI 2026</a>
+    <ul class="nav-links">
+      <li><a href="/">HOME</a></li>
+      <li><a href="/verify">VOTE</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Content -->
+  <div class="hero-content">
+    <div class="hero-logo-wrap">
+      <img src="{{ url_for('static', filename='img/logo-pemira-transparent.png') }}" alt="Logo PEMIRA FTI UG">
+    </div>
+    <h1 class="hero-title">PEMIRA BEM FTI</h1>
+    <p class="hero-subtitle">
+      Sistem E-Voting resmi untuk Pemilihan Umum Raya Mahasiswa BEM
+      FTI Universitas Gunadarma.
+    </p>
+
+    <!-- Voting Status Banner -->
+    {% if voting_status == 'before' %}
+    <div style="background: rgba(59,130,246,0.18); border: 1px solid rgba(147,197,253,0.5); border-radius: 14px; padding: 14px 24px; font-size: 0.92rem; color: #bfdbfe; max-width: 520px; text-align: center;">
+      <i class="fas fa-hourglass-start"></i> Voting dibuka pada <strong>{{ voting_start_fmt }}</strong>
+      <br><span id="countdown-label" style="font-size: 0.82rem; opacity: 0.85;"></span>
+    </div>
+    {% elif voting_status == 'closed' %}
+    <div style="background: rgba(239,68,68,0.18); border: 1px solid rgba(252,165,165,0.5); border-radius: 14px; padding: 14px 24px; font-size: 0.92rem; color: #fca5a5; max-width: 520px; text-align: center;">
+      <i class="fas fa-lock"></i> Voting telah ditutup pada <strong>{{ voting_end_fmt }}</strong>
+    </div>
+    {% elif voting_status == 'open' and voting_end_iso %}
+    <div style="background: rgba(34,197,94,0.18); border: 1px solid rgba(134,239,172,0.5); border-radius: 14px; padding: 14px 24px; font-size: 0.92rem; color: #bbf7d0; max-width: 520px; text-align: center;">
+      <i class="fas fa-circle-dot" style="color: #4ade80;"></i> Voting <strong>SEDANG BERLANGSUNG</strong>
+      <br><span id="countdown-label" style="font-size: 0.82rem; opacity: 0.85;">Ditutup: {{ voting_end_fmt }}</span>
+    </div>
+    {% endif %}
+
+    <div class="hero-actions">
+      {% if voting_status == 'open' %}
+      <a href="/verify" class="btn"><i class="fas fa-id-card"></i> &nbsp;Mulai Memilih</a>
+      {% else %}
+      <span class="btn" style="opacity: 0.4; cursor: not-allowed;"><i class="fas fa-id-card"></i> &nbsp;Mulai Memilih</span>
+      {% endif %}
+    </div>
+
+    <!-- Feature Cards -->
+    <div class="features">
+      <article class="card">
+        <h3>VERIFIKASI QR KRS</h3>
+        <p>
+          Sistem memindai QR code pada KRS, mengunduh dokumen asli dari sumber
+          resmi, lalu mencocokkan Nama, NPM, dan Kelas. Perubahan teks pada
+          berkas yang diunggah tidak akan lolos verifikasi.
+        </p>
+        <span class="icon" aria-hidden="true">
+          <i class="fas fa-qrcode"></i>
+        </span>
+      </article>
+
+      <article class="card">
+        <h3>INTEGRITAS BLOCKCHAIN</h3>
+        <p>
+          Setiap suara direkam sebagai blok ber-hash SHA-256 yang saling
+          terhubung. Bila satu data diubah, rantai akan terputus dan
+          kecurangan langsung terdeteksi.
+        </p>
+        <span class="icon" aria-hidden="true">
+          <i class="fas fa-link"></i>
+        </span>
+      </article>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    &copy; 2026 PEMIRA BEM FTI Universitas Gunadarma. Diamankan dengan blockchain SHA-256.
+  </footer>
+
+</section>
+
+<script>
+  {% if voting_start_iso and voting_status == 'before' %}
+  (function () {
+    const target = new Date("{{ voting_start_iso }}").getTime();
+    const el = document.getElementById('countdown-label');
+    if (!el) return;
+    function tick() {
+      const diff = target - Date.now();
+      if (diff <= 0) { el.textContent = 'Segera dibuka...'; return; }
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      el.textContent = `Dibuka dalam: ${d > 0 ? d+'h ' : ''}${h.toString().padStart(2,'0')}j ${m.toString().padStart(2,'0')}m ${s.toString().padStart(2,'0')}d`;
+    }
+    tick(); setInterval(tick, 1000);
+  })();
+  {% endif %}
+</script>
+</body>
+</html>

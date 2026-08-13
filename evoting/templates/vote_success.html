@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="max-width: 560px; margin: 0 auto;">
+
+    <div class="card" style="text-align: center; padding: 2.5rem 2rem;">
+        <div style="font-size: 3rem; color: var(--success); margin-bottom: 0.75rem;">
+            <i class="fas fa-circle-check"></i>
+        </div>
+        <h2 style="font-size: 1.4rem; margin-bottom: 0.4rem;">Suara Anda Berhasil Direkam</h2>
+        <p style="color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; margin-bottom: 1.75rem;">
+            Terima kasih telah berpartisipasi dalam PEMIRA BEM FTI. Pilihan Anda telah
+            tercatat secara permanen dan anonim pada blockchain.
+        </p>
+
+        <!-- ID Pemilih (hashed) -->
+        <div style="text-align: left; margin-bottom: 1.25rem;">
+            <p style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 0.5rem;">
+                <i class="fas fa-fingerprint"></i> &nbsp;ID Pemilih Anda
+            </p>
+            <div style="display: flex; gap: 0.5rem; align-items: stretch;">
+                <div id="voter-id" class="hash-text" style="flex: 1; font-size: 0.8rem; display: flex; align-items: center;">{{ hashed_id }}</div>
+                <button id="copy-btn" type="button" class="btn btn-primary"
+                    style="white-space: nowrap; padding: 0.45rem 0.9rem; font-size: 0.82rem;">
+                    <i class="fas fa-copy"></i> &nbsp;Salin
+                </button>
+            </div>
+        </div>
+
+        <!-- Peringatan simpan -->
+        <div style="background: #fffbeb; border: 1px solid #fcd34d; border-radius: 10px; padding: 1rem 1.15rem; text-align: left; margin-bottom: 1.75rem;">
+            <p style="font-weight: 700; color: #92400e; font-size: 0.9rem; margin-bottom: 0.3rem;">
+                <i class="fas fa-triangle-exclamation"></i> &nbsp;Penting: Simpan ID Ini
+            </p>
+            <p style="color: #92400e; font-size: 0.85rem; line-height: 1.6;">
+                Salin dan simpan ID pemilih di atas sebagai bukti bahwa suara Anda tercatat.
+                ID ini <strong>hanya ditampilkan satu kali</strong> dan digunakan untuk memverifikasi
+                suara Anda pada blockchain tanpa membuka identitas Anda.
+            </p>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <a href="/cek-suara" class="btn btn-primary" style="flex: 1; min-width: 160px; text-decoration: none; text-align: center;">
+                <i class="fas fa-magnifying-glass"></i> &nbsp;Cek Suara Saya
+            </a>
+            <a href="/results" class="btn" style="flex: 1; min-width: 160px; text-decoration: none; text-align: center; background: #f1f5f9; color: var(--text); border: 1px solid var(--border);">
+                <i class="fas fa-chart-bar"></i> &nbsp;Lihat Hasil
+            </a>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    (function () {
+        const btn = document.getElementById('copy-btn');
+        const idText = document.getElementById('voter-id').textContent.trim();
+        const original = btn.innerHTML;
+
+        btn.addEventListener('click', async function () {
+            try {
+                if (navigator.clipboard && window.isSecureContext) {
+                    await navigator.clipboard.writeText(idText);
+                } else {
+                    // Fallback untuk konteks non-HTTPS (mis. http://localhost di jaringan).
+                    const ta = document.createElement('textarea');
+                    ta.value = idText;
+                    ta.style.position = 'fixed';
+                    ta.style.opacity = '0';
+                    document.body.appendChild(ta);
+                    ta.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(ta);
+                }
+                btn.innerHTML = '<i class="fas fa-check"></i> &nbsp;Tersalin';
+                btn.style.background = 'var(--success)';
+                setTimeout(() => {
+                    btn.innerHTML = original;
+                    btn.style.background = '';
+                }, 2000);
+            } catch (e) {
+                btn.innerHTML = '<i class="fas fa-xmark"></i> &nbsp;Gagal';
+                setTimeout(() => { btn.innerHTML = original; }, 2000);
+            }
+        });
+    })();
+</script>
+{% endblock %}

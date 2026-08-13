@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="max-width: 1100px; margin: 0 auto;">
+
+  <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
+    <div>
+      <h2 style="margin-bottom: 0.3rem; font-size: 1.35rem;">
+        <i class="fas fa-file-circle-check"></i> Review KRS Pemilih
+      </h2>
+      <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0;">
+        Log setiap percobaan unggah KRS beserta hasil pemindaian QR dan keterangan verifikasi.
+        Total: <strong>{{ logs|length }}</strong> percobaan.
+      </p>
+    </div>
+    {% if logs %}
+    <a href="/admin/verify-krs/export" class="btn btn-primary"
+       style="white-space: nowrap; text-decoration: none; background: #15803d; padding: 0.55rem 1rem; font-size: 0.85rem;">
+      <i class="fas fa-file-excel"></i> &nbsp;Export ke Excel
+    </a>
+    {% endif %}
+  </div>
+
+  {% if logs %}
+  <div class="card" style="padding: 0; overflow-x: auto;">
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem;">
+      <thead>
+        <tr style="background: #f8fafc; text-align: left;">
+          <th style="padding: 0.75rem 1rem; font-weight: 700; white-space: nowrap;">No.</th>
+          <th style="padding: 0.75rem 1rem; font-weight: 700; white-space: nowrap;">Waktu</th>
+          <th style="padding: 0.75rem 1rem; font-weight: 700;">NPM</th>
+          <th style="padding: 0.75rem 1rem; font-weight: 700;">Nama</th>
+          <th style="padding: 0.75rem 1rem; font-weight: 700;">Kelas</th>
+          <th style="padding: 0.75rem 1rem; font-weight: 700;">Hasil Scan QR</th>
+          <th style="padding: 0.75rem 1rem; font-weight: 700;">Status</th>
+          <th style="padding: 0.75rem 1rem; font-weight: 700;">Keterangan</th>
+          <th style="padding: 0.75rem 1rem; font-weight: 700;">File KRS</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for log in logs %}
+        <tr style="border-top: 1px solid var(--border);">
+          <td style="padding: 0.7rem 1rem; white-space: nowrap; color: var(--text-muted); font-weight: 600;">{{ loop.index }}</td>
+          <td style="padding: 0.7rem 1rem; white-space: nowrap; color: var(--text-muted);">{{ log.timestamp }}</td>
+          <td style="padding: 0.7rem 1rem; font-weight: 600;">{{ log.npm }}</td>
+          <td style="padding: 0.7rem 1rem;">{{ log.name }}</td>
+          <td style="padding: 0.7rem 1rem;">{{ log.kelas }}</td>
+          <td style="padding: 0.7rem 1rem; max-width: 240px; word-break: break-all;">
+            {% if log.qr_url %}
+              <a href="{{ log.qr_url }}" target="_blank" rel="noopener" style="color: var(--primary); font-size: 0.8rem;">
+                {{ log.qr_url }}
+              </a>
+            {% else %}
+              <span style="color: var(--text-muted);">&ndash;</span>
+            {% endif %}
+          </td>
+          <td style="padding: 0.7rem 1rem;">
+            {% if log.status == 'VALID' %}
+              <span style="background:#f0fdf4;color:#15803d;border:1px solid #bbf7d0;border-radius:6px;padding:0.2rem 0.55rem;font-weight:700;font-size:0.75rem;white-space:nowrap;">
+                <i class="fas fa-circle-check"></i> VALID
+              </span>
+            {% else %}
+              <span style="background:#fef2f2;color:#b91c1c;border:1px solid #fca5a5;border-radius:6px;padding:0.2rem 0.55rem;font-weight:700;font-size:0.75rem;white-space:nowrap;">
+                <i class="fas fa-circle-xmark"></i> GAGAL
+              </span>
+            {% endif %}
+          </td>
+          <td style="padding: 0.7rem 1rem; color: var(--text-muted); max-width: 220px;">{{ log.keterangan }}</td>
+          <td style="padding: 0.7rem 1rem; white-space: nowrap;">
+            {% if log.filename %}
+              <a href="/krs-file/{{ log.filename }}" target="_blank" rel="noopener"
+                 class="btn" style="padding: 0.3rem 0.7rem; font-size: 0.78rem; background: var(--primary); color: #fff; text-decoration: none; border-radius: 6px;">
+                <i class="fas fa-eye"></i> Buka
+              </a>
+            {% else %}
+              <span style="color: var(--text-muted);">&ndash;</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="card" style="text-align: center; padding: 3rem 2rem;">
+    <i class="fas fa-inbox" style="font-size: 2.5rem; color: var(--text-muted); margin-bottom: 1rem;"></i>
+    <p style="color: var(--text-muted); font-size: 0.95rem;">Belum ada percobaan unggah KRS.</p>
+  </div>
+  {% endif %}
+
+</div>
+{% endblock %}

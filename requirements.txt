@@ -1,0 +1,13 @@
+numpy<2.0
+pandas
+flask
+flask-sqlalchemy
+opencv-python
+pytesseract
+pymupdf
+pillow
+requests
+python-dotenv
+werkzeug
+openpyxl
+gunicorn

@@ -1,0 +1,21 @@
+.env
+__pycache__/
+*.pyc
+instance/
+.pytest_cache/
+.venv/
+
+# Folder runtime: simpan foldernya (.gitkeep) tapi abaikan isinya.
+uploads/*
+downloads/*
+backups/*
+!uploads/.gitkeep
+!downloads/.gitkeep
+!backups/.gitkeep
+
+*.log
+.DS_Store
+
+# Alat AI/IDE lokal — tidak ikut dijual/di-host.
+.claude/
+.code-review-graph/

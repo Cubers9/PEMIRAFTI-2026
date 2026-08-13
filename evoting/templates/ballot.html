@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="text-align: center; margin-bottom: 2rem;">
+    <h1 style="font-size: 1.6rem; margin-bottom: 0.4rem;">Surat Suara PEMIRA BEM FTI</h1>
+    <p style="color: var(--text-muted); font-size: 0.9rem;">
+        <i class="fas fa-user"></i> &nbsp;<b>{{ name }}</b> &middot; NPM {{ npm }}
+    </p>
+    <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 0.25rem;">Pilih satu kandidat. Pilihan Anda akan direkam secara permanen pada blockchain.</p>
+</div>
+
+<form action="/cast_vote" method="POST">
+    <div class="candidate-grid">
+
+        <!-- Paslon 01 -->
+        <div class="candidate-card">
+            <img src="{{ url_for('static', filename='img/paslon1.png') }}" alt="Paslon 01"
+                style="width: 100%; max-height: 220px; object-fit: cover; border-radius: 4px; margin-bottom: 1rem; border: 1px solid var(--border);">
+            <h3 style="font-size: 1.1rem; margin-bottom: 0.2rem;">Paslon #01</h3>
+            <p style="font-weight: 700; color: var(--primary); margin-bottom: 0.75rem; font-size: 0.95rem;">Azka Asdalifa &amp; Naufal Wirayuda</p>
+
+            <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.6; text-align: left;">
+                <p><b>Ketua:</b> Azka Asdalifa &middot; Informatika &rsquo;23</p>
+                <p><b>Wakil:</b> Naufal Wirayuda &middot; Teknik Mesin &rsquo;23</p>
+            </div>
+
+            <div style="border-top: 1px solid var(--border); padding-top: 0.9rem; margin-bottom: 1rem; text-align: left;">
+                <p style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 0.5rem;">Visi</p>
+                <p style="font-size: 0.82rem; line-height: 1.6; color: var(--text);">
+                    Mewujudkan BEM FTI yang inklusif dan intelektual sebagai wadah pengembangan potensi mahasiswa secara menyeluruh, guna melahirkan generasi teknologi yang unggul, kritis, dan berdampak nyata bagi masyarakat.
+                </p>
+            </div>
+
+            <div style="border-top: 1px solid var(--border); padding-top: 0.9rem; margin-bottom: 1rem; text-align: left;">
+                <p style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 0.5rem;">Misi</p>
+                <ol style="font-size: 0.82rem; line-height: 1.7; color: var(--text); padding-left: 1.1rem;">
+                    <li>Meningkatkan kualitas intelektual mahasiswa melalui program Sekolah Intelektual yang terstruktur dan berkelanjutan.</li>
+                    <li>Membangun ekosistem kolaborasi riset dan inovasi lintas jurusan di lingkungan FTI.</li>
+                    <li>Memperluas jaringan mahasiswa FTI melalui kemitraan dengan industri dan komunitas teknologi.</li>
+                    <li>Menciptakan organisasi yang transparan, akuntabel, dan ramah bagi seluruh mahasiswa FTI.</li>
+                    <li>Mendorong keterlibatan aktif mahasiswa dalam kegiatan sosial dan pengabdian berbasis teknologi.</li>
+                </ol>
+            </div>
+
+            <div style="border-top: 1px solid var(--border); padding-top: 0.9rem; margin-bottom: 1.25rem; text-align: left;">
+                <p style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 0.4rem;">
+                    <i class="fas fa-star" style="color: var(--primary);"></i> &nbsp;Proker Unggulan: Sekolah Intelektual
+                </p>
+                <p style="font-size: 0.82rem; line-height: 1.6; color: var(--text);">
+                    Program rutin berupa sesi diskusi, kajian ilmiah, dan pelatihan berpikir kritis yang terbuka bagi seluruh mahasiswa FTI. Sekolah Intelektual bertujuan menumbuhkan budaya literasi, nalar ilmiah, dan kepekaan terhadap isu teknologi maupun sosial di lingkungan kampus.
+                </p>
+            </div>
+
+            <button type="submit" name="candidate" value="Paslon 01" class="btn btn-primary" style="width: 100%;">
+                <i class="fas fa-check"></i> &nbsp;Pilih Paslon 01
+            </button>
+        </div>
+
+        <!-- Paslon 02 -->
+        <div class="candidate-card">
+            <img src="{{ url_for('static', filename='img/paslon2.png') }}" alt="Paslon 02"
+                style="width: 100%; max-height: 220px; object-fit: cover; border-radius: 4px; margin-bottom: 1rem; border: 1px solid var(--border);">
+            <h3 style="font-size: 1.1rem; margin-bottom: 0.2rem;">Paslon #02</h3>
+            <p style="font-weight: 700; color: var(--primary); margin-bottom: 0.75rem; font-size: 0.95rem;">Ahmad Gilbert &amp; Daffa Faqih</p>
+
+            <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.6; text-align: left;">
+                <p><b>Ketua:</b> Ahmad Gilbert &middot; Teknik Industri &rsquo;23</p>
+                <p><b>Wakil:</b> Daffa Faqih &middot; Agroteknologi &rsquo;23</p>
+            </div>
+
+            <div style="border-top: 1px solid var(--border); padding-top: 0.9rem; margin-bottom: 1rem; text-align: left;">
+                <p style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 0.5rem;">Visi</p>
+                <p style="font-size: 0.82rem; line-height: 1.6; color: var(--text);">
+                    Mewujudkan BEM FTI sebagai jembatan aspirasi yang kuat antara mahasiswa dan civitas akademika, sehingga tercipta lingkungan kampus yang responsif, harmonis, dan kondusif bagi tumbuhnya mahasiswa yang kompeten dan berkarakter.
+                </p>
+            </div>
+
+            <div style="border-top: 1px solid var(--border); padding-top: 0.9rem; margin-bottom: 1rem; text-align: left;">
+                <p style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 0.5rem;">Misi</p>
+                <ol style="font-size: 0.82rem; line-height: 1.7; color: var(--text); padding-left: 1.1rem;">
+                    <li>Membangun komunikasi efektif antara mahasiswa FTI dan pimpinan dekanat melalui program Temu Dekanat secara rutin.</li>
+                    <li>Memperjuangkan hak dan kepentingan mahasiswa FTI dalam kebijakan akademik dan kemahasiswaan.</li>
+                    <li>Mengoptimalkan fasilitas dan layanan kampus untuk mendukung aktivitas belajar dan berorganisasi.</li>
+                    <li>Menciptakan program kemahasiswaan yang beragam dan inklusif untuk seluruh minat dan bakat mahasiswa FTI.</li>
+                    <li>Membangun sinergi lintas jurusan dan lintas angkatan untuk memperkuat solidaritas keluarga besar FTI.</li>
+                </ol>
+            </div>
+
+            <div style="border-top: 1px solid var(--border); padding-top: 0.9rem; margin-bottom: 1.25rem; text-align: left;">
+                <p style="font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 0.4rem;">
+                    <i class="fas fa-star" style="color: var(--primary);"></i> &nbsp;Proker Unggulan: Temu Dekanat
+                </p>
+                <p style="font-size: 0.82rem; line-height: 1.6; color: var(--text);">
+                    Forum dialog resmi yang mempertemukan perwakilan mahasiswa FTI dengan jajaran dekanat secara berkala. Temu Dekanat memberi ruang bagi mahasiswa untuk menyampaikan aspirasi, keluhan, dan usulan kebijakan secara langsung, sehingga setiap keputusan kampus benar-benar memperhatikan suara mahasiswa.
+                </p>
+            </div>
+
+            <button type="submit" name="candidate" value="Paslon 02" class="btn btn-primary" style="width: 100%;">
+                <i class="fas fa-check"></i> &nbsp;Pilih Paslon 02
+            </button>
+        </div>
+
+    </div>
+</form>
+{% endblock %}
