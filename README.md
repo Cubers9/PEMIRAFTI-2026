@@ -1,4 +1,4 @@
-# VoteChain — Sistem E-Voting Berbasis Blockchain
+# VoteChain - Sistem E-Voting Berbasis Blockchain
 
 Aplikasi pemungutan suara elektronik (e-voting) untuk Pemilihan Umum Raya
 (PEMIRA) organisasi kemahasiswaan. Setiap suara dicatat pada **blockchain
